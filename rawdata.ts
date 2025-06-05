@@ -1,0 +1,28 @@
+import type { DrugShortageData } from "./src/components/drug/type/type";
+
+export const drugShortagesData: DrugShortageData[] = [
+  { category: "Pediatric", count: 431 },
+  { category: "Anesthesia", count: 378 },
+  { category: "Psychiatry", count: 319 },
+  { category: "Gastroenterology", count: 256 },
+  { category: "Other", count: 229 },
+  { category: "Endocrinology/Metabolism", count: 223 },
+  { category: "Neurology", count: 200 },
+  { category: "Cardiovascular", count: 191 },
+  { category: "Analgesia/Addiction", count: 163 },
+  { category: "Anti-Infective", count: 140 },
+  { category: "Oncology", count: 137 },
+  { category: "Rheumatology", count: 78 },
+  { category: "Hematology", count: 69 },
+  { category: "Ophthalmology", count: 55 },
+  { category: "Dermatology", count: 52 },
+  { category: "Pulmonary/Allergy", count: 52 },
+  { category: "Total Parenteral Nutrition", count: 24 },
+  { category: "Renal", count: 23 },
+  { category: "Urology", count: 16 },
+  { category: "Medical Imaging", count: 13 },
+  { category: "Antiviral", count: 11 },
+  { category: "Inborn Errors", count: 2 },
+  { category: "Reproductive", count: 2 },
+  { category: "Transplant", count: 2 },
+];

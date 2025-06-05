@@ -1,164 +1,91 @@
+import {
+  ChevronLeft,
+  ChevronRight,
+  CircleUserRound,
+  Pill,
+  UtensilsCrossed,
+  Info,
+  LayoutDashboard,
+} from "lucide-react";
 import { useState } from "react";
-import { CircleUserRound, ChevronDown } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
-const NavBarComponent = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const SidebarLayout = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+  const toggleSidebar = () => setIsCollapsed((prev) => !prev);
+
+  const navItems = [
+    { name: "Home", to: "/", icon: <LayoutDashboard size={20} /> },
+    { name: "Drugs", to: "/drug", icon: <Pill size={20} /> },
+    { name: "Food", to: "/food", icon: <UtensilsCrossed size={20} /> },
+    { name: "Info", to: "/info", icon: <Info size={20} /> },
+  ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 w-full z-50 py-2">
-      <div className="flex bg-white w-full justify-between items-center px-6 py-3 rounded-[40px]">
-        {/* Logo */}
-        <div className="flex items-center justify-center gap-4">
-          <img
-            src="src\public\images\Logo.svg"
-            alt="Company Logo"
-            className="h-12 w-auto"
-          />
-          <div className="font-medium text-xl">Analytics</div>
-        </div>
-
-        {/* Navigation (Desktop only) */}
-        <div className="hidden md:flex items-center bg-gray-200 text-gray-700 rounded-full p-1 space-x-2">
-          <NavLink to="/" className="rounded-full text-sm font-light">
-            {({ isActive }) => (
-              <span
-                className={`block ${
-                  isActive
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:bg-gray-200 font-light"
-                } px-6 py-2 rounded-full`}
-              >
-                Home
-              </span>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div
+        className={`${
+          isCollapsed ? "w-20" : "w-64"
+        } bg-white shadow-md p-4 flex flex-col justify-between transition-all duration-300 h-screen sticky top-0`}
+      >
+        <div>
+          {/* Logo + Toggle */}
+          <div className="flex items-center justify-between mb-6">
+            <img
+              src="src\public\images\Logo.svg"
+              alt="Logo"
+              className={`h-8 ${isCollapsed ? "mx-auto h-6" : ""}`}
+            />
+            {!isCollapsed && (
+              <button onClick={toggleSidebar} className="text-gray-100">
+                <ChevronLeft size={10} />
+              </button>
             )}
-          </NavLink>
-
-          <NavLink to="/drug" className="rounded-full text-sm font-light">
-            {({ isActive }) => (
-              <span
-                className={`block ${
-                  isActive
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:bg-gray-200 font-extralight"
-                } px-6 py-2 rounded-full`}
-              >
-                Drugs
-              </span>
+            {isCollapsed && (
+              <button onClick={toggleSidebar} className="text-gray-100">
+                <ChevronRight size={10} />
+              </button>
             )}
-          </NavLink>
-          <NavLink to="/food" className="rounded-full text-sm font-light">
-            {({ isActive }) => (
-              <span
-                className={`block ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "text-gray-700 hover:bg-gray-200 font-extralight"
-                } px-6 py-2 rounded-full`}
-              >
-                Food
-              </span>
-            )}
-          </NavLink>
-          <NavLink to="/info" className="rounded-full text-sm font-light">
-            {({ isActive }) => (
-              <span
-                className={`block ${
-                  isActive
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:bg-gray-200 font-extralight"
-                } px-6 py-2 rounded-full`}
-              >
-                Info
-              </span>
-            )}
-          </NavLink>
-        </div>
-
-        {/* User Profile + Dropdown (Mobile) */}
-        <div className="flex items-center justify-center bg-gray-200 p-4 rounded-full gap-4 relative">
-          <CircleUserRound className="w-5 h-5" />
-          <div
-            className="flex items-center gap-1 cursor-pointer"
-            onClick={toggleDropdown}
-          >
-            <div className="font-semibold text-sm">Admin</div>
-            <ChevronDown className="w-4 h-4 md:hidden" />
           </div>
 
-          {/* Dropdown Menu for md and below */}
-          {isDropdownOpen && (
-            <div className="absolute right-0 top-14 bg-white border border-gray-200 rounded-lg shadow-md w-44 md:hidden">
-              <NavLink to="/" className="rounded-full text-sm font-light">
-                {({ isActive }) => (
-                  <span
-                    className={`block ${
-                      isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-700 hover:bg-gray-200 font-light"
-                    } px-6 py-2 rounded-full`}
-                  >
-                    Home
-                  </span>
-                )}
+          {/* Nav Links */}
+          <nav className="flex flex-col gap-2">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  } ${isCollapsed ? "justify-center" : ""}`
+                }
+              >
+                {item.icon}
+                {!isCollapsed && <span className="text-sm">{item.name}</span>}
               </NavLink>
+            ))}
+          </nav>
+        </div>
 
-              <NavLink to="/drug" className="rounded-full text-sm font-light">
-                {({ isActive }) => (
-                  <span
-                    className={`block ${
-                      isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-700 hover:bg-gray-200 font-extralight"
-                    } px-6 py-2 rounded-full`}
-                  >
-                    Drugs
-                  </span>
-                )}
-              </NavLink>
-              <NavLink to="/food" className="rounded-full text-sm font-light">
-                {({ isActive }) => (
-                  <span
-                    className={`block ${
-                      isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-700 hover:bg-gray-200 font-extralight"
-                    } px-6 py-2 rounded-full`}
-                  >
-                    Food
-                  </span>
-                )}
-              </NavLink>
-              <NavLink to="/info" className="rounded-full text-sm font-light">
-                {({ isActive }) => (
-                  <span
-                    className={`block ${
-                      isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-700 hover:bg-gray-200 font-extralight"
-                    } px-6 py-2 rounded-full`}
-                  >
-                    Info
-                  </span>
-                )}
-              </NavLink>
-            </div>
-          )}
+        {/* User */}
+        <div className="p-4 border-t border-gray-100">
+          <div className="flex items-center gap-2">
+            <CircleUserRound className="w-5 h-5" />
+            {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
+          </div>
         </div>
       </div>
-    </div>
 
-    // <div className="fixed top-0 left-0 right-0 w-full z-50 py-2 bg-red-400">
-    //   Helo
-    //   <div>Hello</div>
-    //   <div>Hello</div>
-    //   <div>Hello</div>
-    //   <div>Hello</div>
-    //   <div>Hello</div>
-    // </div>
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto h-screen p-6">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
-export default NavBarComponent;
+export default SidebarLayout;
