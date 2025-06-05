@@ -22,13 +22,18 @@ const SidebarLayout = () => {
     { name: "Info", to: "/info", icon: <Info size={20} /> },
   ];
 
+  // Calculate margin for main content based on sidebar width
+  const mainContentMarginLeft = isCollapsed ? "ml-20" : "ml-64";
+
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}
       <div
-        className={`${
-          isCollapsed ? "w-20" : "w-64"
-        } bg-background-light shadow-md p-4 flex flex-col justify-between transition-all duration-300 h-screen sticky top-0 border-r border-border`}
+        className={`
+          ${isCollapsed ? "w-20" : "w-64"}
+          bg-background-light shadow-md p-4 flex-col justify-between transition-all duration-300 border-r border-border z-30 flex
+          fixed inset-y-0 left-0
+        `}
       >
         <div>
           {/* Logo + Toggle */}
@@ -88,8 +93,8 @@ const SidebarLayout = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-y-auto h-screen p-6">
+      {/* Main Content Container */}
+      <div className={`flex-1 overflow-y-auto p-6 ${mainContentMarginLeft}`}>
         <Outlet />
       </div>
     </div>
