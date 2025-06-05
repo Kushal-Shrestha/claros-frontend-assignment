@@ -26,3 +26,13 @@ export const drugShortagesData: DrugShortageData[] = [
   { category: "Reproductive", count: 2 },
   { category: "Transplant", count: 2 },
 ];
+
+export const RECALL_STATUS_DESCRIPTIONS: Record<string, string> = {
+  Terminated:
+    "The recall has been completed and all affected products have been removed from the market.",
+  Ongoing:
+    "The recall is currently active and products are being removed from the market.",
+  Pending: "The recall has been initiated but not yet fully implemented.",
+  Completed:
+    "The recall process has been finished and all necessary actions have been taken.",
+};
