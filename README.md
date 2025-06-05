@@ -1,54 +1,69 @@
-# React + TypeScript + Vite
+# FDA Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive analytics dashboard built using **React**, **TypeScript**, **Redux Toolkit**, **Tailwind CSS**, and **Recharts**, visualizing real-time FDA drug recall data via the [openFDA API](https://open.fda.gov/).
 
-Currently, two official plugins are available:
+🔗 **Live Demo**: [https://comfy-frangollo-335705.netlify.app](https://comfy-frangollo-335705.netlify.app)  
+📂 **GitHub Repo**: [https://github.com/Kushal-Shrestha/claros-frontend-assignment](https://github.com/Kushal-Shrestha/claros-frontend-assignment.git)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 📊 Visual analytics with pie, bar, and line charts
+- 🧠 Real-time drug recall insights via openFDA
+- 🔍 Search recalls by product description or status
+- 🎯 Clean and intuitive UI with a collapsible sidebar
+- 📱 Fully responsive across devices
+- 🧰 Global state handled with Redux Toolkit
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 📁 Project Structure
+
+src/
+├── components/
+│ ├── drugs/
+│ │ └── DrugComponent.tsx
+│ ├── home/
+│ │ └── HomePage.tsx
+│ ├── info/
+│ │ └── InfoPage.tsx
+│ └── nav-bar/
+│ └── SidebarLayout.tsx
+├── redux/
+│ ├── drugSlice.ts
+│ └── store.ts
+├── App.tsx
+├── main.tsx
+└── index.css
+
+---
+
+## 🛠️ Tech Stack
+
+- **React + Vite**
+- **TypeScript**
+- **Redux Toolkit**
+- **Tailwind CSS**
+- **Recharts**
+- **React Router DOM**
+- **openFDA REST API**
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Kushal-Shrestha/claros-frontend-assignment.git
+cd claros-frontend-assignment
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm install
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 3. Run the App
+
+npm run dev
