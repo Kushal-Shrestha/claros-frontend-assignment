@@ -40,7 +40,7 @@ const SidebarLayout = () => {
           {/* Logo + Toggle */}
           <div className="flex items-center justify-between mb-6">
             <img
-              src="/public/Logo.svg"
+              src="/Logo.svg"
               alt="Logo"
               className={`h-8 ${isCollapsed ? "mx-auto h-6" : ""}`}
             />
