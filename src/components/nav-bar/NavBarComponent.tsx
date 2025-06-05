@@ -10,7 +10,7 @@ import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const SidebarLayout = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
 
