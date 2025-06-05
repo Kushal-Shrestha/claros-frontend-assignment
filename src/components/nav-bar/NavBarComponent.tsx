@@ -3,7 +3,6 @@ import {
   ChevronRight,
   CircleUserRound,
   Pill,
-  UtensilsCrossed,
   Info,
   LayoutDashboard,
 } from "lucide-react";
@@ -18,7 +17,6 @@ const SidebarLayout = () => {
   const navItems = [
     { name: "Home", to: "/", icon: <LayoutDashboard size={20} /> },
     { name: "Drugs", to: "/drug", icon: <Pill size={20} /> },
-    { name: "Food", to: "/food", icon: <UtensilsCrossed size={20} /> },
     { name: "Info", to: "/info", icon: <Info size={20} /> },
   ];
 
