@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { COLORS } from "../../../../../theme";
 
 const RecallStatusDistributionComponent = () => {
-  const { data } = useSelector((state: RootState) => state.drugs);
+  const { unfilteredData } = useSelector((state: RootState) => state.drugs);
 
   const prepareRecallByStatusData = () => {
     const statusCounts: Record<string, number> = {};
-    data.enforcement.forEach((item: any) => {
+    unfilteredData.enforcement.forEach((item: any) => {
       statusCounts[item.status] = (statusCounts[item.status] || 0) + 1;
     });
     return Object.entries(statusCounts).map(([name, value]) => ({
