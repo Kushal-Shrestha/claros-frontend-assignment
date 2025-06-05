@@ -3,7 +3,6 @@ import {
   ChevronRight,
   CircleUserRound,
   Pill,
-  UtensilsCrossed,
   Info,
   LayoutDashboard,
 } from "lucide-react";
@@ -18,33 +17,44 @@ const SidebarLayout = () => {
   const navItems = [
     { name: "Home", to: "/", icon: <LayoutDashboard size={20} /> },
     { name: "Drugs", to: "/drug", icon: <Pill size={20} /> },
-    { name: "Food", to: "/food", icon: <UtensilsCrossed size={20} /> },
     { name: "Info", to: "/info", icon: <Info size={20} /> },
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}
       <div
-        className={`${
-          isCollapsed ? "w-20" : "w-64"
-        } bg-white shadow-md p-4 flex flex-col justify-between transition-all duration-300 h-screen sticky top-0`}
+        className={`
+          ${isCollapsed ? "w-20" : "w-64"}
+          bg-background-light shadow-md p-4 flex-col justify-between transition-all duration-300 border-r border-border z-30 flex flex-shrink-0
+          fixed inset-y-0 left-0 transform
+          lg:static lg:inset-y-auto lg:left-auto lg:translate-x-0 translate-x-0
+          ${
+            isCollapsed ? "-translate-x-full lg:translate-x-0" : "translate-x-0"
+          }
+        `}
       >
         <div>
           {/* Logo + Toggle */}
           <div className="flex items-center justify-between mb-6">
             <img
-              src="src\public\images\Logo.svg"
+              src="/Logo.svg"
               alt="Logo"
               className={`h-8 ${isCollapsed ? "mx-auto h-6" : ""}`}
             />
             {!isCollapsed && (
-              <button onClick={toggleSidebar} className="text-gray-100">
+              <button
+                onClick={toggleSidebar}
+                className="text-text-muted hover:text-text"
+              >
                 <ChevronLeft size={10} />
               </button>
             )}
             {isCollapsed && (
-              <button onClick={toggleSidebar} className="text-gray-100">
+              <button
+                onClick={toggleSidebar}
+                className="text-text-muted hover:text-text"
+              >
                 <ChevronRight size={10} />
               </button>
             )}
@@ -59,8 +69,8 @@ const SidebarLayout = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
                     isActive
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-primary text-white"
+                      : "text-text-muted hover:bg-background-lighter hover:text-text"
                   } ${isCollapsed ? "justify-center" : ""}`
                 }
               >
@@ -72,16 +82,21 @@ const SidebarLayout = () => {
         </div>
 
         {/* User */}
-        <div className="p-4 border-t border-gray-100">
+        <div className="p-4 border-t border-border">
           <div className="flex items-center gap-2">
-            <CircleUserRound className="w-5 h-5" />
-            {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
+            <CircleUserRound className="w-5 h-5 text-text-muted" />
+            {!isCollapsed && (
+              <span className="text-sm font-medium text-text-muted">Admin</span>
+            )}
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto h-screen p-6">
+      <div
+        className={`flex-1 overflow-y-auto p-6 transition-all duration-300 max-md:ml-20 ml-0 overflow-x-hidden lg:ml-0 md:ml-20
+        `}
+      >
         <Outlet />
       </div>
     </div>

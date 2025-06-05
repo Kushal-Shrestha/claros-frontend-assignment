@@ -18,7 +18,6 @@ export const fetchDrugs = createAsyncThunk(
         searchParams.push(`status:"${status}"`);
       }
       if (searchTerm) {
-        // Use a more flexible search pattern for product description
         searchParams.push(`product_description:${searchTerm}`);
       }
 
@@ -59,6 +58,11 @@ const drugsSlice = createSlice({
       events: [],
       labels: [],
     },
+    unfilteredData: {
+      enforcement: [],
+      events: [],
+      labels: [],
+    },
     loading: {
       initial: false,
       table: false,
@@ -95,6 +99,10 @@ const drugsSlice = createSlice({
         state.loading.initial = false;
         state.loading.table = false;
         state.data = action.payload;
+        // Store unfiltered data on initial load
+        if (action.meta.arg.status === "All" && !state.searchTerm) {
+          state.unfilteredData = action.payload;
+        }
       })
       .addCase(fetchDrugs.rejected, (state, action) => {
         state.loading.initial = false;

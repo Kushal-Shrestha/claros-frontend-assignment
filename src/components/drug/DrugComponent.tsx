@@ -20,17 +20,16 @@ const DrugsComponent = () => {
   }, [dispatch, filter, searchTerm]);
 
   return (
-    <div className="mt-6 p-6 bg-white rounded-xl shadow-lg">
+    // <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border max-md:w-[30rem] overflow-x-hidden">
+    <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border max-md:w-[76vw] max-sm:w-[65vw] overflow-x-hidden">
       {/* Intro Component */}
       <DrugComponentInfo />
 
       {loading.initial && (
-        <div className="text-blue-600 text-sm animate-pulse">
-          Loading data...
-        </div>
+        <div className="text-accent text-sm animate-pulse">Loading data...</div>
       )}
       {error && (
-        <div className="text-red-500 bg-red-50 border border-red-200 rounded p-3">
+        <div className="text-red-300 bg-red-500/10 border border-red-500/20 rounded p-3">
           Error: {error}
         </div>
       )}
@@ -38,13 +37,20 @@ const DrugsComponent = () => {
       {!loading.initial && !error && (
         <>
           {/* KPI Cards */}
-          <KpiCardComponent />
+          <div className="mb-6">
+            <KpiCardComponent />
+          </div>
 
           {/* Charts Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <RecallStatusDistributionComponent />
-            {/* Top Recalled Drugs */}
-            <TopRecalledDrugsComponent />
+          <div className="mb-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-6">
+              <div className="w-full">
+                <RecallStatusDistributionComponent />
+              </div>
+              <div className="w-full">
+                <TopRecalledDrugsComponent />
+              </div>
+            </div>
           </div>
 
           {/* Drug Shortages Chart */}
@@ -53,7 +59,9 @@ const DrugsComponent = () => {
           </div>
 
           {/* Recent Recalls Table */}
-          <RecentRecallTableComponent />
+          <div className="w-full overflow-x-auto">
+            <RecentRecallTableComponent />
+          </div>
         </>
       )}
     </div>

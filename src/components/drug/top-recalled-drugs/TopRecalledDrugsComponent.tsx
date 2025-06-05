@@ -6,7 +6,6 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
-  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -27,7 +26,7 @@ const TopRecalledDrugsComponent = () => {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
       .map(([name, value]) => ({
-        name: name.length > 20 ? name.substring(0, 50) + "..." : name,
+        name: name.length > 30 ? name.substring(0, 30) + "..." : name,
         value,
         fullName: name,
       }));
@@ -53,7 +52,7 @@ const TopRecalledDrugsComponent = () => {
                 top: 5,
                 right: 30,
                 left: 20,
-                bottom: 100,
+                bottom: 20,
               }}
             >
               <CartesianGrid
@@ -61,24 +60,22 @@ const TopRecalledDrugsComponent = () => {
                 stroke="rgba(255, 255, 255, 0.1)"
                 vertical={false}
               />
-              <XAxis
-                dataKey="name"
-                angle={-45}
-                textAnchor="end"
-                height={120}
-                tick={{
-                  fill: "rgba(255, 255, 255, 0.8)",
-                  fontSize: 12,
-                }}
-                interval={0}
-                dy={10}
-              />
+              <XAxis dataKey="name" hide={true} />
               <YAxis
                 tick={{
                   fill: "rgba(255, 255, 255, 0.8)",
                   fontSize: 12,
                 }}
                 width={40}
+                label={{
+                  value: "Number of Recalls",
+                  angle: -90,
+                  position: "insideLeft",
+                  style: {
+                    fill: "rgba(255, 255, 255, 0.8)",
+                    fontSize: 12,
+                  },
+                }}
               />
               <Tooltip
                 contentStyle={{
@@ -91,16 +88,9 @@ const TopRecalledDrugsComponent = () => {
                   return [`${value} recalls`, props.payload.fullName];
                 }}
               />
-              <Legend
-                wrapperStyle={{
-                  color: "rgba(255, 255, 255, 0.8)",
-                  fontSize: 12,
-                }}
-              />
               <Bar
                 dataKey="value"
                 fill="#8884d8"
-                name="Number of Recalls"
                 radius={[4, 4, 0, 0]}
                 maxBarSize={50}
               >
@@ -114,16 +104,26 @@ const TopRecalledDrugsComponent = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 grid grid-cols-1 gap-2">
           {prepareTopRecalledDrugs().map((item, index) => (
-            <div key={item.name} className="flex items-center gap-2">
+            <div
+              key={item.name}
+              className="flex items-start gap-3 bg-white/5 p-3 rounded-lg hover:bg-white/10 transition-colors"
+            >
               <div
-                className="w-3 h-3 rounded-full"
+                className="w-3 h-3 rounded-full flex-shrink-0 mt-1.5"
                 style={{
                   backgroundColor: COLORS[index % COLORS.length],
                 }}
               />
-              <span className="text-sm text-white/80">{item.name}</span>
+              <div className="flex flex-col flex-1 min-w-0">
+                <span className="text-sm font-medium text-white truncate">
+                  {item.fullName}
+                </span>
+                <span className="text-xs text-white/60 mt-0.5">
+                  {item.value} recalls
+                </span>
+              </div>
             </div>
           ))}
         </div>
