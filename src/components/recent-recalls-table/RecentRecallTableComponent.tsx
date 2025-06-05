@@ -144,9 +144,22 @@ const RecentRecallTableComponent = () => {
                         {drug.reason_for_recall}
                       </td>
                       <td className="px-5 py-3 text-text">
-                        {new Date(
-                          drug.recall_initiation_date
-                        ).toLocaleDateString()}
+                        {(() => {
+                          if (!drug.recall_initiation_date) return "N/A";
+                          // FDA API dates are in YYYYMMDD format as numbers
+                          const dateNum = drug.recall_initiation_date;
+                          const dateStr = dateNum.toString().padStart(8, "0");
+                          const year = dateStr.substring(0, 4);
+                          const month = dateStr.substring(4, 6);
+                          const day = dateStr.substring(6, 8);
+                          return new Date(
+                            `${year}-${month}-${day}`
+                          ).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          });
+                        })()}
                       </td>
                     </tr>
                   ))}
