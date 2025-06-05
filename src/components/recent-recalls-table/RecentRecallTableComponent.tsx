@@ -17,7 +17,7 @@ const RecentRecallTableComponent = () => {
 
   const handleFilterChange = (newFilter: RecallStatus) => {
     dispatch(setFilter(newFilter));
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1);
   };
 
   // Client-side filtering
@@ -63,7 +63,7 @@ const RecentRecallTableComponent = () => {
 
           {/* Search and Filter Section */}
           <div className="flex items-center gap-4">
-            {/* Search Bar */}
+            {/* Search Input */}
             <div className="relative">
               <input
                 type="text"
@@ -73,41 +73,40 @@ const RecentRecallTableComponent = () => {
                   setSearchTerm(e.target.value);
                   setCurrentPage(1); // Reset to first page when search changes
                 }}
-                className="bg-white/10 text-white placeholder-white/50 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/20 transition-all w-64"
+                className="pl-10 pr-4 py-2 bg-background-light border border-border rounded-lg text-text placeholder-text-muted focus:outline-none focus:border-accent"
               />
-              <Search className="w-4 h-4 text-white/50 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
             </div>
 
             {/* Filter Buttons */}
-            <div className="flex items-center gap-2">
-              {(["All", "Ongoing", "Completed", "Terminated"] as const).map(
-                (status) => (
-                  <button
-                    key={status}
-                    onClick={() => handleFilterChange(status)}
-                    className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
-                      filter === status
-                        ? "bg-white text-primary font-semibold"
-                        : "bg-white/10 text-white hover:bg-white/20"
-                    }`}
-                  >
-                    {status}
-                  </button>
-                )
-              )}
+            <div className="flex gap-2">
+              {["All", "Ongoing", "Terminated"].map((status) => (
+                <button
+                  key={status}
+                  onClick={() => handleFilterChange(status as RecallStatus)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                    filter === status
+                      ? "bg-accent text-white"
+                      : "bg-background-light text-text-muted hover:bg-background-lighter"
+                  }`}
+                >
+                  {status}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="overflow-x-auto rounded-lg bg-white/5">
+        {/* Table */}
+        <div className="overflow-x-auto rounded-lg bg-background-light">
           {loading.table ? (
-            <div className="p-4 text-center text-white/80 animate-pulse">
+            <div className="p-4 text-center text-text-muted animate-pulse">
               Loading table data...
             </div>
           ) : (
             <>
               <table className="min-w-full text-sm text-left">
-                <thead className="text-xs uppercase font-medium text-white/80">
+                <thead className="text-xs uppercase font-medium text-text-muted">
                   <tr>
                     <th className="px-5 py-3">Drug Name</th>
                     <th className="px-5 py-3">Recall Number</th>
@@ -120,12 +119,12 @@ const RecentRecallTableComponent = () => {
                   {currentData.map((drug: any, index: number) => (
                     <tr
                       key={index}
-                      className="border-t border-white/10 hover:bg-white/5 transition-colors"
+                      className="border-t border-border hover:bg-background-lighter transition-colors"
                     >
-                      <td className="px-5 py-3 text-white/90">
+                      <td className="px-5 py-3 text-text">
                         {drug.product_description}
                       </td>
-                      <td className="px-5 py-3 text-white/90">
+                      <td className="px-5 py-3 text-text">
                         {drug.recall_number}
                       </td>
                       <td className="px-5 py-3">
@@ -141,10 +140,10 @@ const RecentRecallTableComponent = () => {
                           {drug.status}
                         </span>
                       </td>
-                      <td className="px-5 py-3 text-white/90">
+                      <td className="px-5 py-3 text-text">
                         {drug.reason_for_recall}
                       </td>
-                      <td className="px-5 py-3 text-white/90">
+                      <td className="px-5 py-3 text-text">
                         {new Date(
                           drug.recall_initiation_date
                         ).toLocaleDateString()}
@@ -154,7 +153,7 @@ const RecentRecallTableComponent = () => {
                 </tbody>
               </table>
               {filteredData.length === 0 && (
-                <div className="p-4 text-center text-white/80">
+                <div className="p-4 text-center text-text-muted">
                   No recalls found matching your search criteria
                 </div>
               )}
@@ -163,23 +162,20 @@ const RecentRecallTableComponent = () => {
         </div>
 
         {/* Pagination Controls */}
-        {filteredData.length > 0 && (
-          <div className="flex items-center justify-between mt-4 px-2">
-            <div className="text-sm text-white/80">
-              Showing {startIndex + 1}-{Math.min(endIndex, filteredData.length)}{" "}
-              of {filteredData.length} results
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between mt-4">
+            <div className="text-sm text-text-muted">
+              Showing {startIndex + 1} to{" "}
+              {Math.min(endIndex, filteredData.length)} of {filteredData.length}{" "}
+              entries
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`p-2 rounded-lg transition-colors ${
-                  currentPage === 1
-                    ? "text-white/30 cursor-not-allowed"
-                    : "text-white hover:bg-white/10"
-                }`}
+                className="p-2 rounded-lg bg-background-light text-text-muted hover:bg-background-lighter disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
               <div className="flex items-center gap-1">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
@@ -189,8 +185,8 @@ const RecentRecallTableComponent = () => {
                       onClick={() => handlePageChange(page)}
                       className={`w-8 h-8 rounded-lg text-sm transition-colors ${
                         currentPage === page
-                          ? "bg-white text-primary font-semibold"
-                          : "text-white hover:bg-white/10"
+                          ? "bg-accent text-white font-semibold"
+                          : "bg-background-light text-text-muted hover:bg-background-lighter"
                       }`}
                     >
                       {page}
@@ -201,13 +197,9 @@ const RecentRecallTableComponent = () => {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`p-2 rounded-lg transition-colors ${
-                  currentPage === totalPages
-                    ? "text-white/30 cursor-not-allowed"
-                    : "text-white hover:bg-white/10"
-                }`}
+                className="p-2 rounded-lg bg-background-light text-text-muted hover:bg-background-lighter disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
