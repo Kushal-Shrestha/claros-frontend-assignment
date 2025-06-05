@@ -1,13 +1,11 @@
-import React from "react";
-
 const Homepage = () => {
   return (
     <div className="container mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">
+      <h1 className="text-3xl font-bold text-text mb-6">
         Welcome to Analytics Dashboard
       </h1>
-      <div className="bg-white rounded-lg shadow p-6">
-        <p className="text-gray-600">
+      <div className="bg-background-light rounded-lg shadow p-6 border border-border">
+        <p className="text-text-muted">
           This is your analytics dashboard. Use the navigation bar above to
           explore different sections.
         </p>

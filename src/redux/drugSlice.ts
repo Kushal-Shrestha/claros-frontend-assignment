@@ -18,7 +18,6 @@ export const fetchDrugs = createAsyncThunk(
         searchParams.push(`status:"${status}"`);
       }
       if (searchTerm) {
-        // Use a more flexible search pattern for product description
         searchParams.push(`product_description:${searchTerm}`);
       }
 

@@ -23,12 +23,12 @@ const SidebarLayout = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
       <div
         className={`${
           isCollapsed ? "w-20" : "w-64"
-        } bg-white shadow-md p-4 flex flex-col justify-between transition-all duration-300 h-screen sticky top-0`}
+        } bg-background-light shadow-md p-4 flex flex-col justify-between transition-all duration-300 h-screen sticky top-0 border-r border-border`}
       >
         <div>
           {/* Logo + Toggle */}
@@ -39,12 +39,18 @@ const SidebarLayout = () => {
               className={`h-8 ${isCollapsed ? "mx-auto h-6" : ""}`}
             />
             {!isCollapsed && (
-              <button onClick={toggleSidebar} className="text-gray-100">
+              <button
+                onClick={toggleSidebar}
+                className="text-text-muted hover:text-text"
+              >
                 <ChevronLeft size={10} />
               </button>
             )}
             {isCollapsed && (
-              <button onClick={toggleSidebar} className="text-gray-100">
+              <button
+                onClick={toggleSidebar}
+                className="text-text-muted hover:text-text"
+              >
                 <ChevronRight size={10} />
               </button>
             )}
@@ -59,8 +65,8 @@ const SidebarLayout = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
                     isActive
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-primary text-white"
+                      : "text-text-muted hover:bg-background-lighter hover:text-text"
                   } ${isCollapsed ? "justify-center" : ""}`
                 }
               >
@@ -72,10 +78,12 @@ const SidebarLayout = () => {
         </div>
 
         {/* User */}
-        <div className="p-4 border-t border-gray-100">
+        <div className="p-4 border-t border-border">
           <div className="flex items-center gap-2">
-            <CircleUserRound className="w-5 h-5" />
-            {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
+            <CircleUserRound className="w-5 h-5 text-text-muted" />
+            {!isCollapsed && (
+              <span className="text-sm font-medium text-text-muted">Admin</span>
+            )}
           </div>
         </div>
       </div>

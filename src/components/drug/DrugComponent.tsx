@@ -20,17 +20,15 @@ const DrugsComponent = () => {
   }, [dispatch, filter, searchTerm]);
 
   return (
-    <div className="mt-6 p-6 bg-white rounded-xl shadow-lg">
+    <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border">
       {/* Intro Component */}
       <DrugComponentInfo />
 
       {loading.initial && (
-        <div className="text-blue-600 text-sm animate-pulse">
-          Loading data...
-        </div>
+        <div className="text-accent text-sm animate-pulse">Loading data...</div>
       )}
       {error && (
-        <div className="text-red-500 bg-red-50 border border-red-200 rounded p-3">
+        <div className="text-red-300 bg-red-500/10 border border-red-500/20 rounded p-3">
           Error: {error}
         </div>
       )}
