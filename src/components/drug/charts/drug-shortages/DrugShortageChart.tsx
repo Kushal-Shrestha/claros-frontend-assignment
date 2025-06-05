@@ -49,7 +49,7 @@ const DrugShortageChart = () => {
     <div className="bg-primary rounded-xl p-6 shadow-sm border border-primary/20 hover:shadow-lg transition-all duration-300 hover:border-primary/30 group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 group-hover:bg-white/10 transition-colors duration-300"></div>
       <div className="relative">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 max-md:flex-col max-md:justify-between max-md:items-center max-md:gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-white/10 rounded-lg group-hover:bg-white/20 transition-colors duration-300">
               <AlertTriangle className="w-5 h-5 text-white" />
@@ -60,7 +60,7 @@ const DrugShortageChart = () => {
           </div>
 
           {/* Radio Button Filter */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 max-md:flex-col max-md:justify-start max-md:items-start max-md:w-full">
             <label className="inline-flex items-center">
               <input
                 type="radio"

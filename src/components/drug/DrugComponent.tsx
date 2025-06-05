@@ -20,7 +20,8 @@ const DrugsComponent = () => {
   }, [dispatch, filter, searchTerm]);
 
   return (
-    <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border">
+    // <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border max-md:w-[30rem] overflow-x-hidden">
+    <div className="mt-6 p-6 bg-background-light rounded-xl shadow-lg border border-border max-md:w-[76vw] max-sm:w-[65vw] overflow-x-hidden">
       {/* Intro Component */}
       <DrugComponentInfo />
 
@@ -36,13 +37,20 @@ const DrugsComponent = () => {
       {!loading.initial && !error && (
         <>
           {/* KPI Cards */}
-          <KpiCardComponent />
+          <div className="mb-6">
+            <KpiCardComponent />
+          </div>
 
           {/* Charts Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <RecallStatusDistributionComponent />
-            {/* Top Recalled Drugs */}
-            <TopRecalledDrugsComponent />
+          <div className="mb-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-6">
+              <div className="w-full">
+                <RecallStatusDistributionComponent />
+              </div>
+              <div className="w-full">
+                <TopRecalledDrugsComponent />
+              </div>
+            </div>
           </div>
 
           {/* Drug Shortages Chart */}
@@ -51,7 +59,9 @@ const DrugsComponent = () => {
           </div>
 
           {/* Recent Recalls Table */}
-          <RecentRecallTableComponent />
+          <div className="w-full overflow-x-auto">
+            <RecentRecallTableComponent />
+          </div>
         </>
       )}
     </div>
